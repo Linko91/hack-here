@@ -1,0 +1,28 @@
+{
+	"name": "hack-here",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "Davide Di Modica",
+	"license": "ISC",
+	"dependencies": {
+		"cli-spinners": "^2.9.1",
+		"colors": "^1.4.0",
+		"css-minifiers": "^3.0.0",
+		"fs-extra": "^11.1.1",
+		"get-all-files": "^4.1.0",
+		"inquirer": "^9.2.11",
+		"inquirer-path": "^1.0.0-beta5",
+		"lodash": "^4.17.21",
+		"papaparse": "^5.4.1",
+		"penthouse": "^2.3.3",
+		"puppeteer": "^21.3.8",
+		"sharp": "^0.32.6",
+		"sugar": "^2.0.6",
+		"terminal-overwrite": "^2.0.1"
+	}
+}
