@@ -14,14 +14,14 @@ const argv = yargs(hideBin(process.argv)).argv
 
 const IMAGE_FORMATS = ["jpg", "jpeg", "png"]
 
-const convert = (file, rootFolder, format) => {
+const convert = (file, rootFolder, format, quality) => {
 	const newPath = convertFilename(file, rootFolder, format)
 
 	const parentDir = path.dirname(newPath)
 	fs.mkdirSync(parentDir, { recursive: true })
 
 	sharp(file)
-		[format]({ quality: 92 })
+		[format]({ quality })
 		.toFile(newPath)
 		.then(info => {
 			console.log("")
@@ -50,7 +50,7 @@ const isImage = file_url => {
 	return IMAGE_FORMATS.includes(ext.toLowerCase())
 }
 
-// example: node index.js /Users/linko/Downloads/images [--create-folder] [--format jpeg]
+// example: node index.js /Users/linko/Downloads/images [--create-folder] [--format jpeg] [--quality 90]
 if (process.argv.length >= 3) {
 	console.log("")
 	//console.log(argv)
@@ -58,6 +58,7 @@ if (process.argv.length >= 3) {
 	const rootPath = argv._[0]
 	const createFolder = argv.createFolder
 	const format = argv.format || "webp"
+	const quality = argv.quality || 85
 
 	console.log("dir/file: ".green, rootPath.toString().yellow.bold)
 
@@ -65,7 +66,7 @@ if (process.argv.length >= 3) {
 
 	for (const file of files) {
 		if (isImage(file)) {
-			convert(file, createFolder ? rootPath : false, format)
+			convert(file, createFolder ? rootPath : false, format, quality)
 		}
 	}
 }
