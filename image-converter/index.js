@@ -7,6 +7,10 @@ const path = require("path")
 const sharp = require("sharp")
 const _ = require("lodash")
 const { getAllFilesSync } = require("get-all-files")
+const yargs = require("yargs/yargs")
+const { hideBin } = require("yargs/helpers")
+
+const argv = yargs(hideBin(process.argv)).argv
 
 const IMAGE_FORMATS = ["jpg", "jpeg", "png"]
 
@@ -49,15 +53,17 @@ const isImage = file_url => {
 // example: node index.js /Users/linko/Downloads/images [--create-folder]
 if (process.argv.length >= 3) {
 	console.log("")
-	console.log("dir/file: ".green, process.argv[2].toString().yellow.bold)
 
-	const createFolder = process.argv.length === 4 && process.argv[3] === "--create-folder"
+	const rootPath = argv._[0]
+	const createFolder = argv.createFolder
 
-	const files = getAllFilesSync(process.argv[2]).toArray()
+	console.log("dir/file: ".green, rootPath.toString().yellow.bold)
+
+	const files = getAllFilesSync(rootPath).toArray()
 
 	for (const file of files) {
 		if (isImage(file)) {
-			convert(file, createFolder ? process.argv[2] : false)
+			convert(file, createFolder ? rootPath : false)
 		}
 	}
 }
